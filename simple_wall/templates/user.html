@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+    h5 {
+        text-underline-position: below;
+        color: black;
+    }
+    header{
+        background-color: blue;
+        padding: 20px 10px;
+
+    }
+    
+    </style>
+</head>
+<body>
+    <header>
+        <h1> The Wall </h1>
+        <a href='/logout' class = "btn btn-primary" > Logout </a>
+        <p> Hello {{session['first_name']}} </p>
+
+    </header>
+
+  
+    {{messages}}
+    
+     
+    <form action= "/create_message" method="POST">
+        <div id="messages">
+            <h2>Messages</h2>
+        {% for quote in quotes %}
+        <div class="messages">
+            <h3>{{quote['first_name']}}</h3>
+                <p>{{message ['message']}}</p>  
+                <a href="/delete/{{quote['id']}}" class = "btn btn-primary">Delete</a>
+                        {% endfor %}
+                </div>
+                </div>
+    </form>
+
+    <h5> Add a Quote!  </h5>
+    {% for user in users %}
+    <form action='/create_message' method="POST"> 
+        {{user.first_name}}<textarea  name="message"> </textarea>
+        <input type= "hidden" value = "{{user.id}}" name= "recipientid" >
+        <button type="submit" class="btn btn-primary">Send</button>    
+    </form>
+       {% endfor %}  
+  
+        
+    </form>        
+
+     
+    
+</body>
+</html>
